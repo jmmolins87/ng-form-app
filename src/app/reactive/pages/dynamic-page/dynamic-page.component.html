@@ -1,7 +1,10 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr>
 
-<form autocomplete="off">
+<form 
+    [formGroup]="myForm" 
+    (ngSubmit)="onSubmit()" 
+    autocomplete="off">
 
     <!-- * Nombre -->
     <div class="mb-3 row">
@@ -9,6 +12,7 @@
         <div class="col-sm-9">
             <input 
                 class="form-control"
+                formControlName="name"
                 placeholder="Nombre de la persona">
             <span class="form-text text-danger">error message</span>
         </div>
@@ -32,8 +36,12 @@
     <!-- * Lista de Juegos Favoritos -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Favoritos</label>
-        <div class="col-sm-9">
-            <div class="mb-1">
+        <div 
+            formArrayName="favoriteGames" 
+            class="col-sm-9">
+            <div 
+                *ngFor="let favorite of favoriteGames.controls"
+                class="mb-1">
                 <div class="input-group">
                     <input class="form-control">
                     <button 
