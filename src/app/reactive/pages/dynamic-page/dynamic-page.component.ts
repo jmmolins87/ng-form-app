@@ -47,7 +47,7 @@ export class DynamicPageComponent {
 
     const errors = this.myForm.controls[field].errors || {};
 
-    for ( const key of Object.keys( errors ) ) {
+    for ( const key of Object.keys( errors )) {
       switch (key) {
         case 'required':
           return 'Este campo es requerido';
@@ -68,7 +68,7 @@ export class DynamicPageComponent {
     if( this.newFavorite.invalid ) return;
     const newGame = this.newFavorite.value;
 
-    // Para el form builder
+    // * Para el form builder
     // this.favoriteGames.push( new FormControl( newGame, Validators.required ) );
 
     this.favoriteGames.push( this.fb.control( newGame, Validators.required ));
