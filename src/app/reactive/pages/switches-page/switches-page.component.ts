@@ -4,6 +4,7 @@ import {
   FormGroup, 
   Validators 
 } from '@angular/forms';
+import { ValidatorsService } from './../../../shared/services/validators.service';
 
 @Component({
   selector: 'app-switches-page',
@@ -22,15 +23,17 @@ export class SwitchesPageComponent implements OnInit {
     wantNotifications: false
   }
 
-  constructor( private fb: FormBuilder ) {}
+  constructor( 
+    private fb: FormBuilder, 
+    private _validatorsService: ValidatorsService
+  ) {}
 
   ngOnInit(): void {
     this.myForm.reset( this.person );
   }
 
   isValidField( field: string ): boolean | null {
-    return this.myForm.controls[field].errors
-      && this.myForm.controls[field].touched  
+    return this._validatorsService.isValidField( this.myForm, field ); 
   }
 
   // ngSumibt

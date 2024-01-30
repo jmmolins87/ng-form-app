@@ -1,17 +1,23 @@
-import { FormControl, ValidationErrors } from "@angular/forms";
+import { 
+    FormGroup, 
+    ValidationErrors 
+} from "@angular/forms";
 
-export const firstNameAndLastnamePattern: string = '([a-zA-Z]+) ([a-zA-Z]+)';
-export const emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
+export function isFieldOneEqualToFieldTwo( field1: string, field2: string ) {
 
-export const cantBeStrider = ( control: FormControl ): ValidationErrors | null => {
+    return ( formGroup: FormGroup ): ValidationErrors | null => {
+        const pass1 = formGroup.controls[field1].value;
+        const pass2 = formGroup.controls[field2].value;
 
-    const value: string = control.value?.trim().toLowerCase();
+        if( pass1 === pass2 ) {
+            formGroup.controls[field2].setErrors( null );
+            return null;
+        }
 
-    if( value === 'strider' ) {
-        return { noStrider: true }
+        formGroup.controls[field2].setErrors( { notEqual: true } );
+        return { notEqual: true };
     }
 
-    return null;
-
 }
+
